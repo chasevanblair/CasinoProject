@@ -55,7 +55,7 @@ double SlotMachine::spin(double b){
     }
     cout << endl;
     //format decimal to x.xx format
-    double ret = bet * winCheck(results);
+    double ret = b * winCheck(results);
     cout << "$" << ret << " added to account." << endl;
     return ret;
 }
