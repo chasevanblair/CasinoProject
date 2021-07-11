@@ -10,3 +10,4 @@ int main()
 
     g.addBalance(s.spin(2));
 }
+//test git
