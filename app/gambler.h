@@ -6,6 +6,7 @@ class Gambler
 {
 public:
     Gambler();
+    Gambler(int id, string name, double balance);
     void setName(string n);
     void setBalance(double b);
     string getName();

@@ -5,6 +5,7 @@
 using namespace std;
 Gambler::Gambler()
 {
+    //default const lets instances be defined more on the fly
     //TODO probably a better way to implement the nonstring inputs
     //dont get them from const
     string i;
@@ -19,6 +20,12 @@ Gambler::Gambler()
     string b;
     getline(cin, b);
     balance = stod(b);
+}
+Gambler::Gambler(int id, string n, double b){
+    //this will be used for reading in the names from csv
+    ID = id;
+    name = n;
+    balance = b;
 }
 double Gambler::getBalance(){
     return balance;
@@ -35,7 +42,7 @@ void Gambler::setName(string n){
 void Gambler::writeToFile(){
     //write to the csv
     ofstream outputFile;
-    outputFile.open("../file.txt");
+    outputFile.open("../gamblers.txt");
     outputFile << ID <<"," << name<< "," << balance;
     outputFile.close();
 }//have read in the main because it should execute every time

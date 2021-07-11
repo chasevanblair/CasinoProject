@@ -20,3 +20,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     gambler.h \
     slotmachine.h
+
+DISTFILES += \
+    gamblers.txt \
+    gamblers.txt \
+    gamblers.txt \
+    gamblers.txt
