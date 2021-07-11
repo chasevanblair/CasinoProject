@@ -42,7 +42,7 @@ void Gambler::setName(string n){
 void Gambler::writeToFile(){
     //write to the csv
     ofstream outputFile;
-    outputFile.open("../gamblers.txt");
+    outputFile.open("../gamblers.txt", ofstream::app);
     outputFile << ID <<"," << name<< "," << balance;
     outputFile.close();
 }//have read in the main because it should execute every time
