@@ -8,10 +8,11 @@ Gambler::Gambler()
     //default const lets instances be defined more on the fly
     //TODO probably a better way to implement the nonstring inputs
     //dont get them from const
-    string i;
+    string idTemp;
     cout << "ID: ";
-    getline(cin, i);
-    ID = stoi(i);
+    //invalid argument error that only gets thrown in the cmd
+    getline(cin, idTemp);
+    ID = stoi(idTemp);
 
     cout << "Name: ";
     getline(cin, name);

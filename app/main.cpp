@@ -10,7 +10,10 @@
 #include <vector>
 using namespace std;
 vector<Gambler> gList;
-Gambler *currentGambler = NULL;
+Gambler c;
+Gambler *currentGambler = &c;
+
+//shared_ptr<Gambler> currentGambler = NULL;
 SlotMachine s;
 
 Gambler strProcess(QString line){
@@ -50,6 +53,7 @@ int findID(string id){
 void choice(){
     //TODO recursion broke after implementing findID
     //option 2 also throws stoi error for some reason
+    //segmentation error
     string menuChoice;
     cout << "Welcome to the lucky 7 casino!" << endl << "Please enter what you would like to do: " << endl
          << "(1) Select profile" << endl
@@ -70,16 +74,17 @@ void choice(){
         cin >> idIn;
         int loc = findID(idIn);
         cout << "lostacitn " << loc << endl;
-        if (loc != -1)
-            *currentGambler = gList[loc];
-        else
+        if (loc != -1){
+            currentGambler = &gList[loc];
+        }
+        else{
             cout << "player does not exist" << endl;
-
+        }
         choice();
         //set currentGambler to the Gambler that has that id val
         //user can enter an id and use that data
     }else if(menuChoice == "2"){
-        currentGambler = new Gambler();
+        *currentGambler = Gambler();
 
         currentGambler->writeToFile();
         choice();
@@ -94,16 +99,11 @@ void choice(){
         }
     else if(menuChoice == "q"){
         //quits
-        if(currentGambler != NULL){
-            //needs to update file not create another entry
-            currentGambler->writeToFile();
-        }else{
-            //creates
-            currentGambler->writeToFile();
+        currentGambler->writeToFile();
 
 
         }
-    }else{
+    else{
         cout << "Input invalid. Try Again." << endl;
         choice();
 
@@ -113,7 +113,7 @@ void choice(){
 
 int main()
 {
-
+    currentGambler = NULL;
 
 
 
