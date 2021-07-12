@@ -42,6 +42,9 @@ void Gambler::setBalance(double b){
 void Gambler::setName(string n){
     name = n;
 }
+int Gambler::getID(){
+    return ID;
+}
 void Gambler::writeToFile(){
     //write to the csv
     /*ofstream outputFile;
@@ -55,7 +58,6 @@ void Gambler::writeToFile(){
         // opens an existing csv file or creates a new file.
         fout.open("../app/gamblerList.txt", ios::out | ios::app);
         if(fout.is_open()){
-            cout << "writing" <<endl;
             fout << ID <<"," << name << "," << balance << "\n";}
         else
             cout << "open failed\n";
@@ -67,4 +69,7 @@ void Gambler::writeToFile(){
 //maybe put writetofile in a destructor
 void Gambler::addBalance(double b){
     balance += b;
+}
+void Gambler:: subtractBalance(double b){
+    balance -= b;
 }

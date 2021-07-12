@@ -10,6 +10,8 @@
 #include <vector>
 using namespace std;
 vector<Gambler> gList;
+Gambler *currentGambler = NULL;
+SlotMachine s;
 
 Gambler strProcess(QString line){
     QStringList params = line.split(',');
@@ -32,7 +34,22 @@ void qRead(){
 
 }
 
+//checks ids to see if that id exists in the file then returns the index
+//return -1 if not found
+int findID(string id){
+    int i = 0;
+    for(Gambler t : gList){
+        if(t.getID() == stoi(id)){
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
+
 void choice(){
+    //TODO recursion broke after implementing findID
+    //option 2 also throws stoi error for some reason
     string menuChoice;
     cout << "Welcome to the lucky 7 casino!" << endl << "Please enter what you would like to do: " << endl
          << "(1) Select profile" << endl
@@ -43,25 +60,60 @@ void choice(){
     cin >> menuChoice;
 
     if(menuChoice == "1"){
-        cout << "list here" << endl;
+        cout << "Saved customers:" << endl;
+
+        for(Gambler t : gList){
+            t.toString();
+        }
+        cout << "Enter ID of account: " << endl;
+        string idIn;
+        cin >> idIn;
+        int loc = findID(idIn);
+        cout << "lostacitn " << loc << endl;
+        if (loc != -1)
+            *currentGambler = gList[loc];
+        else
+            cout << "player does not exist" << endl;
+
+        choice();
+        //set currentGambler to the Gambler that has that id val
         //user can enter an id and use that data
     }else if(menuChoice == "2"){
-        Gambler g;
-        g.writeToFile();
+        currentGambler = new Gambler();
+
+        currentGambler->writeToFile();
+        choice();
     }else if(menuChoice == "3"){
+        string bet;
         //launch slot where bet is subtracted from acct balance and the return of spin() is added
         cout << "Enter your bet for the slot machine: ";
-    }else if(menuChoice == "q"){
+        cin >> bet;
+        currentGambler->subtractBalance(stod(bet));
+       currentGambler->addBalance(s.spin(stod(bet)));
+        choice();
+        }
+    else if(menuChoice == "q"){
         //quits
+        if(currentGambler != NULL){
+            //needs to update file not create another entry
+            currentGambler->writeToFile();
+        }else{
+            //creates
+            currentGambler->writeToFile();
+
+
+        }
     }else{
         cout << "Input invalid. Try Again." << endl;
         choice();
+
     }
+
 }
 
 int main()
 {
-    choice();
+
 
 
 
@@ -79,6 +131,7 @@ int main()
     cout << "line: " << line << endl;
     fin.close();*/
     qRead();
+     choice();
     for(Gambler g : gList){
         g.toString();
     }

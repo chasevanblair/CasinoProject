@@ -16,6 +16,7 @@ public:
     void writeToFile();
     void addBalance(double b);
     void toString();
+    void subtractBalance(double b);
 private:
     int ID;
     string name;
