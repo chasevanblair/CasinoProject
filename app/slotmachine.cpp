@@ -53,7 +53,7 @@ double SlotMachine::spin(double b){
         cout << results[i] << " ";
         //need method to check winning nums and their win amts 2x 3x 4x
     }
-    cout << endl;
+    cout << endl << endl;
     //format decimal to x.xx format
     double ret = b * winCheck(results);
     cout << "$" << ret << " added to account." << endl;

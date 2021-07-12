@@ -22,7 +22,4 @@ HEADERS += \
     slotmachine.h
 
 DISTFILES += \
-    gamblers.txt \
-    gamblers.txt \
-    gamblers.txt \
-    gamblers.txt
+    gamblerList.txt \

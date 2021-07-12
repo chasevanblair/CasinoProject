@@ -41,11 +41,26 @@ void Gambler::setName(string n){
 }
 void Gambler::writeToFile(){
     //write to the csv
-    ofstream outputFile;
+    /*ofstream outputFile;
     outputFile.open("../gamblers.txt", ofstream::app);
     outputFile << ID <<"," << name<< "," << balance;
-    outputFile.close();
-}//have read in the main because it should execute every time
+    outputFile.close();*/
+    //g4g code
+    // file pointer
+        fstream fout;
+
+        // opens an existing csv file or creates a new file.
+        fout.open("../app/gamblerList.txt", ios::out | ios::app);
+        if(fout.is_open()){
+            cout << "writing" <<endl;
+            fout << ID <<"," << name << "," << balance << "\n";}
+        else
+            cout << "open failed\n";
+    fout.close();
+}
+
+
+//have read in the main because it should execute every time
 //maybe put writetofile in a destructor
 void Gambler::addBalance(double b){
     balance += b;
