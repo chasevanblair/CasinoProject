@@ -15,6 +15,7 @@ public:
     int getID();
     void writeToFile();
     void addBalance(double b);
+    void toString();
 private:
     int ID;
     string name;

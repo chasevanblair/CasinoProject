@@ -3,94 +3,85 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+#include <QStringList>
+#include <vector>
 using namespace std;
+vector<Gambler> gList;
 
-void read_record()
-{
-
-    // File pointer
-    fstream fin;
-
-    // Open an existing file
-    if(!fin.is_open())
-        fin.open("../app/gamblerList.txt", fstream::app);
-
-    // Get the roll number
-    // of which the data is required
-    int id, idComp, count = 0;
-    cout << "Enter the ID number: ";
-    cin >> id;
-
-    // Read the Data from the file
-    // as String Vector
-    vector<string> row;
-    string line, word, temp;
-
-    while (!fin.eof()) {
-        cout << "In loop\n";
-        row.clear();
-
-        // read an entire row and
-        // store it in a string variable 'line'
-        getline(fin, line);
-        cout << "line: " << line << endl;
-        // used for breaking words
-        stringstream s(line);
-
-        // read every column data of a row and
-        // store it in a string variable, 'word'
-        while (getline(s, word, ',')) {
-
-            // add all the column data
-            // of a row to a vector
-            row.push_back(word);
-        }
-
-        // convert string to integer for comparision
-        idComp = stoi(row[0]);
-
-        // Compare the roll number
-        if (idComp == id) {
-            // Print the found data
-            count = 1;
-            cout << "Account ID " << row[0] << " selected." << endl;
-            cout << "Name: " << row[1] << endl;
-            cout << "Balance: " << row[2] << endl;
-
-            break;
-        }
-    }
-    if (count == 0)
-        cout << "Record not found\n";
+Gambler strProcess(QString line){
+    QStringList params = line.split(',');
+    //gList.push_back(Gambler(params.value(0).toInt(), params.value(1).toStdString(), params.value(2).toDouble()));
+    return Gambler(params.value(0).toInt(), params.value(1).toStdString(), params.value(2).toDouble());
 }
 
+void qRead(){
+    //reads as a qfile and pushes created objects to a vector gList
+    QFile file("../app/gamblerList.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
 
-int main()
-{
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            //cout << "q line: " << line.toStdString() << endl;
+            gList.push_back(strProcess(line));
+        }
 
+}
 
+void choice(){
     string menuChoice;
-    /*cout << "Welcome to the lucky 7 casino!" << endl << "Please enter what you would like to do: " << endl
+    cout << "Welcome to the lucky 7 casino!" << endl << "Please enter what you would like to do: " << endl
          << "(1) Select profile" << endl
          << "(2) Create profile" << endl
          << "(3) Play slots" << endl
          << "(q) Quit and save" << endl
          << "Choice: ";
-    cin >> menuChoice;*/
+    cin >> menuChoice;
 
-    Gambler g;
-    SlotMachine s;
+    if(menuChoice == "1"){
+        cout << "list here" << endl;
+        //user can enter an id and use that data
+    }else if(menuChoice == "2"){
+        Gambler g;
+        g.writeToFile();
+    }else if(menuChoice == "3"){
+        //launch slot where bet is subtracted from acct balance and the return of spin() is added
+        cout << "Enter your bet for the slot machine: ";
+    }else if(menuChoice == "q"){
+        //quits
+    }else{
+        cout << "Input invalid. Try Again." << endl;
+        choice();
+    }
+}
 
-    g.writeToFile();
-    read_record();
-    //fstream fin;
-    //if(!fin.is_open())
-    //    fin.open("../app/gamblerList.txt", ios::in);
-    //string line;
-    //getline(fin, line);
+int main()
+{
+    choice();
 
-    //cout << endl << line;
-    //fin.close();
-    g.addBalance(s.spin(2));
+
+
+    //Gambler g;
+   // SlotMachine s;
+
+    //g.writeToFile();
+    /*read_record();
+    fstream fin;
+    if(!fin.is_open())
+        fin.open("../app/gamblerList.txt", fstream::app);
+    string line;
+   getline(fin, line);
+
+    cout << "line: " << line << endl;
+    fin.close();*/
+    qRead();
+    for(Gambler g : gList){
+        g.toString();
+    }
+   // g.addBalance(s.spin(2));
 }
 //test git2

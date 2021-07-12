@@ -27,6 +27,9 @@ Gambler::Gambler(int id, string n, double b){
     name = n;
     balance = b;
 }
+void Gambler::toString(){
+    cout << "ID: " << ID <<", Name: " << name<< ", Balance: $" << balance << endl;
+}
 double Gambler::getBalance(){
     return balance;
 }
