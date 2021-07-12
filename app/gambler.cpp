@@ -11,15 +11,16 @@ Gambler::Gambler()
     string idTemp;
     cout << "ID: ";
     //invalid argument error that only gets thrown in the cmd
-    getline(cin, idTemp);
+    cin >> idTemp;
     ID = stoi(idTemp);
 
+
     cout << "Name: ";
-    getline(cin, name);
+    cin >> name;
 
     cout << "Account balance: ";
     string b;
-    getline(cin, b);
+    cin >> b;
     balance = stod(b);
 }
 Gambler::Gambler(int id, string n, double b){
